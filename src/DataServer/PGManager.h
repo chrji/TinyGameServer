@@ -8,24 +8,34 @@
 #include <postgresql/libpq-fe.h>
 
 #include <string>
+#include <vector>
+#include <atomic>
+
+#include "../include/Base.h"
 
 class PGManager
 {
 public:
-    PGManager();
+    explicit PGManager(const std::string& addr, unsigned int num = 2);
 
     ~PGManager();
+
+    bool Connect(const std::string& password);
+
+    int64_t SelectUser(std::string name, std::string password);
 
 protected:
 
 private:
+    PGconn* PickContext();
 
-    PGconn* conn_;
-    PGresult* res_;
 
-    std::string conninfo_;
+    std::string addr_;
+    std::atomic<ConnStatus> status_;
 
-    int fields_;
+    std::mutex mutex_conns_;
+    std::vector<PGconn*> conns_;
+    int conn_num_;
 
 };
 

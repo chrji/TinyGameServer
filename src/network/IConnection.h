@@ -63,7 +63,6 @@ public:
 
     virtual void Start() = 0;
 
-    // only can be called by client
     virtual void Close() = 0;
 
     virtual void Send(std::shared_ptr<Buffer>) = 0;

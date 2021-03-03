@@ -32,6 +32,7 @@ int main()
 //                PQerrorMessage(conn));
 
     auto loop = std::make_shared<EventLoop>();
+    loop->Init();
 
     TCPServer server(loop, "192.168.0.1:10240");
 

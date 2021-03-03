@@ -55,14 +55,11 @@ void TCPConnection::Start()
 
 void TCPConnection::Close()
 {
-    if (id_ == -1)
-    {
-        status_ = Disconnected;
-        loop_->AsyncCall([this]() -> int
-                         {
-                             return HandleClose();
-                         });
-    }
+    auto conn = shared_from_this();
+    loop_->AsyncCall([conn]() -> int
+                     {
+                         return conn->HandleClose();
+                     });
 }
 
 void TCPConnection::Send(std::shared_ptr<Buffer> buf)
@@ -126,10 +123,6 @@ int TCPConnection::HandleClose()
     return 0;
 }
 
-//int TCPConnection::SendInLoop()
-//{
-//    return 0;
-//}
 
 int TCPConnection::SendInLoop(std::shared_ptr<Buffer> buf)
 {

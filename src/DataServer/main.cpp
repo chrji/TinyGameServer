@@ -8,15 +8,17 @@
 #include "../network/IConnection.h"
 #include "../util/Buffer.h"
 
+#include "RedisManager.h"
+#include "PGManager.h"
+
 #include <iostream>
 
 int main()
 {
     std::string addr = "0.0.0.0:10240";
-    int thread_num = 4;
+    int thread_num = 2;
     auto loop = std::make_shared<EventLoop>();
     loop->Init();
-
 
 
     auto message_cb = [&](ConnSPtr conn) -> int
@@ -54,6 +56,17 @@ int main()
                                      return 0;
                                  });
     client.Connect();
+
+    RedisManager r("0.0.0.0:6379", 1);
+    r.Connect("-std=c++11");
+
+    r.Set("vvvv", "5");
+    std::string value;
+    std::cout << r.Get("vv", value) << std::endl;
+    std::cout << value << std::endl;
+
+    PGManager p("0.0.0.0:5432", 1);
+
 
     loop->Run();
 

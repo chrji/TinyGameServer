@@ -22,4 +22,8 @@ add_executable(DBServer
         ../network/TCPConnection.cpp
         ../network/TCPConnector.cpp
         ../log/Log.cpp
+
+        ../DataServer/PGManager.cpp
+        ../DataServer/RedisManager.cpp
+
         main.cpp)
