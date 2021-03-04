@@ -14,7 +14,6 @@ add_executable(DBServer
         ../util/WorkThread.cpp
         ../util/FdWatcher.cpp
         ../util/ThreadManager.cpp
-        ../network/Network.cpp
         ../network/EventLoop.cpp
         ../network/TCPServer.cpp
         ../network/TCPClient.cpp

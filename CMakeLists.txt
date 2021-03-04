@@ -16,7 +16,6 @@ add_executable(TinyGameServer
         src/util/WorkThread.cpp
         src/util/FdWatcher.cpp
         src/util/ThreadManager.cpp
-        src/network/Network.cpp
         src/network/EventLoop.cpp
         src/network/TCPServer.cpp
         src/network/TCPClient.cpp
