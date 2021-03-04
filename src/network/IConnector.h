@@ -5,7 +5,7 @@
 #ifndef TINYGAMESERVER_ICONNECTOR_H
 #define TINYGAMESERVER_ICONNECTOR_H
 
-#include "../include/Base.h"
+#include "include/Base.h"
 #include "inner.h"
 
 #include <memory>

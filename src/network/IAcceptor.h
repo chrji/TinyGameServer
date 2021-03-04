@@ -6,7 +6,7 @@
 #define TINYGAMESERVER_IACCEPTOR_H
 
 
-#include "../include/Base.h"
+#include "include/Base.h"
 #include "inner.h"
 
 #include <memory>

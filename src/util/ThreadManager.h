@@ -11,9 +11,9 @@
 #include <thread>
 #include <functional>
 
-#include "../include/Base.h"
+#include "include/Base.h"
 
-#include "../network/inner.h"
+#include "network/inner.h"
 
 class EventLoop;
 

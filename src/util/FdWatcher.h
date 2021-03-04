@@ -10,7 +10,7 @@
 #include <atomic>
 
 #include <event2/event.h>
-#include "../network/inner.h"
+#include "network/inner.h"
 
 class EventLoop;
 

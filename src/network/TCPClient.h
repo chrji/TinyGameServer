@@ -32,6 +32,11 @@ public:
 
     void Disconnect();
 
+    void Send(std::shared_ptr<Buffer> buf)
+    {
+        connection_->Send(buf);
+    }
+
 
     void SetConnectionCallBack(const std::function<int(ConnSPtr)>& cb)
     {
@@ -58,7 +63,7 @@ private:
     std::string addr_;
 
     std::shared_ptr<IConnector> connector_;
-    std::shared_ptr<IConnection> connection_;
+    ConnSPtr connection_;
 
     std::function<int(ConnSPtr)> connection_cb_;
     std::function<int(ConnSPtr)> message_cb_;

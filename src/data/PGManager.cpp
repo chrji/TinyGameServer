@@ -4,6 +4,8 @@
 
 #include "PGManager.h"
 
+#include <assert.h>
+
 PGManager::PGManager(const std::string& addr, unsigned int num)
         : addr_(addr), conn_num_(num)
 {
@@ -41,6 +43,9 @@ bool PGManager::Connect(const std::string& password)
             }
         }
     }
+
+    assert(!conns_.empty());
+
     return true;
 }
 
@@ -50,25 +55,26 @@ int64_t PGManager::SelectUser(std::string name, std::string password)
     auto c = PickContext();
     int64_t ret = -1;
     char sql[128] = {};
-    sprintf(sql, "select uid from GameUser where user = '%s' and password = '%s';",
+    sprintf(sql, "select uid from GameUser where username = '%s' and password = '%s';",
             name.c_str(), password.c_str());
 
     auto res = PQexec(c, sql);
-    if (res == nullptr || PQresultStatus(res) != PGRES_COMMAND_OK || PQresultStatus(res) != PGRES_TUPLES_OK)
+    auto x = PQresultStatus(res);
+    if (res != nullptr || PQresultStatus(res) == PGRES_COMMAND_OK || PQresultStatus(res) == PGRES_TUPLES_OK)
     {
+        int rows = PQntuples(res);
+        for (int i = 0; i < rows; i++)
+        {
+            auto c = PQgetvalue(res, i, 0);
+
+            ret = strtoll(c, nullptr, 10);
+        }
+
         PQclear(res);
         return ret;
     }
 
-    int rows = PQntuples(res);
-    for (int i = 0; i < rows; i++)
-    {
-        auto c = PQgetvalue(res, i, 0);
-
-        ret = strtoll(c, nullptr, 10);
-    }
     PQclear(res);
-
     return ret;
 }
 

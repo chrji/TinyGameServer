@@ -3,10 +3,9 @@
  */
 
 #include "TCPAcceptor.h"
-#include "../include/EventLoop.h"
-#include "../util/FdWatcher.h"
+#include "include/EventLoop.h"
+#include "util/FdWatcher.h"
 
-//#include "../include/common.h"
 
 #include <cstring>
 

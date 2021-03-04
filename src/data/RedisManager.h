@@ -10,7 +10,7 @@
 
 #include <hiredis/hiredis.h>
 
-#include "../include/Base.h"
+#include "include/Base.h"
 
 class RedisManager
 {

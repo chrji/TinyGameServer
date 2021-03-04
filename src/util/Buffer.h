@@ -5,7 +5,7 @@
 #ifndef TINYGAMESERVER_BUFFER_H
 #define TINYGAMESERVER_BUFFER_H
 
-#include "../include/Base.h"
+#include "include/Base.h"
 
 #include <string.h>
 
@@ -70,6 +70,15 @@ public:
         {
             length = GetLength();
         }
+        std::string str(GetData(), length);
+        read_index_ += length;
+
+        return str;
+    }
+
+    inline std::string ReadString()
+    {
+        unsigned int length = GetLength();
         std::string str(GetData(), length);
         read_index_ += length;
 

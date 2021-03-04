@@ -5,7 +5,6 @@
 #ifndef TINYGAMESERVER_EVENTCHANNEL_H
 #define TINYGAMESERVER_EVENTCHANNEL_H
 
-//#include "../include/common.h"
 
 #include <string.h>
 
@@ -15,7 +14,7 @@
 
 #include <event2/event.h>
 
-#include "../network/inner.h"
+#include "network/inner.h"
 
 
 class EventChannel

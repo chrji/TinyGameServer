@@ -35,6 +35,13 @@ enum ConnStatus
     Connected = 2
 };
 
+enum BufferStatus
+{
+    READ_SUCCESS = 0,
+    READ_INCOMPLETE = 1,
+    READ_TYPE_ERROR = 2,
+    READ_INNER_ERROR = 3
+};
 
 
 // keyword defer : language feature from go
@@ -44,8 +51,10 @@ enum ConnStatus
 #define Defer_(line, code) \
 class CONTACT(Defer_,line) \
 { public: \
-    ~CONTACT(Defer_,line)(){code} \
-} CONTACT(Defer__instance_,line)
+    std::function<void()> f_; \
+    CONTACT(Defer_,line)(std::function<void()>&& f):f_(std::move(f)){} \
+    ~CONTACT(Defer_,line)(){f_();} \
+} CONTACT(Defer__instance_,line)([&](){code})
 
 #define defer(code)   Defer_(__LINE__,code)
 
@@ -59,7 +68,7 @@ static std::pair<std::string, int> SplitHostPort(const std::string& addr)
         return ret;
     }
 
-    ret.first = std::string(addr,0, index);
+    ret.first = std::string(addr, 0, index);
     ret.second = atoi(&addr[index + 1]);
 
     return ret;

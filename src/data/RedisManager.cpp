@@ -5,6 +5,7 @@
 #include "RedisManager.h"
 
 #include <string.h>
+#include <assert.h>
 
 #include <vector>
 
@@ -45,6 +46,8 @@ bool RedisManager::Connect(const std::string& password)
             redisFree(c);
         }
     }
+
+    assert(!conns_.empty());
 
     return true;
 }

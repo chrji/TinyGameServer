@@ -3,8 +3,8 @@
  */
 
 #include "ThreadManager.h"
-#include "../include/EventLoop.h"
-#include "../util/WorkThread.h"
+#include "include/EventLoop.h"
+#include "util/WorkThread.h"
 
 
 ThreadManager::ThreadManager(LoopSPtr loop)

@@ -4,7 +4,7 @@
 
 #include <unistd.h>
 #include "WorkThread.h"
-#include "../include/EventLoop.h"
+#include "include/EventLoop.h"
 
 WorkThread::WorkThread(const std::function<int()>& functor)
         : status_(Initial)

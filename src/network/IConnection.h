@@ -5,7 +5,7 @@
 #ifndef TINYGAMESERVER_ICONNECTION_H
 #define TINYGAMESERVER_ICONNECTION_H
 
-#include "../include/Base.h"
+#include "include/Base.h"
 #include "inner.h"
 
 #include <memory>
@@ -20,7 +20,11 @@ class IConnection
 public:
 
     explicit IConnection(LoopSPtr loop)
-            : loop_(loop), status_(Connected), id_(-1)
+            : loop_(loop),
+              status_(Connected),
+              serial_id_(-1),
+              user_id_(-1),
+              authorized_(false)
     {
     }
 
@@ -36,9 +40,29 @@ public:
         return addr_;
     }
 
-    int64_t GetId() const
+    int64_t GetSerialId() const
     {
-        return id_;
+        return serial_id_;
+    }
+
+    int64_t getUserId() const
+    {
+        return user_id_;
+    }
+
+    void setUserId(int64_t userId)
+    {
+        user_id_ = userId;
+    }
+
+    bool IsAuthorized() const
+    {
+        return authorized_;
+    }
+
+    void SetAuthorized(bool authorized)
+    {
+        authorized_ = authorized;
     }
 
     std::shared_ptr<Buffer> GetBuffer() const
@@ -72,7 +96,10 @@ protected:
     std::atomic<ConnStatus> status_;
 
     std::string addr_;
-    int64_t id_;
+    int64_t serial_id_;
+    int64_t user_id_;
+
+    bool authorized_;
 
     std::shared_ptr<Buffer> recv_buffer_;
     std::shared_ptr<Buffer> send_buffer_;

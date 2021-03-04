@@ -4,9 +4,9 @@
 
 #include "TCPConnection.h"
 
-#include "../util/Buffer.h"
-#include "../include/EventLoop.h"
-#include "../util/FdWatcher.h"
+#include "util/Buffer.h"
+#include "include/EventLoop.h"
+#include "util/FdWatcher.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -18,7 +18,7 @@ TCPConnection::TCPConnection(LoopSPtr loop, evutil_socket_t fd, const std::strin
           fd_(fd)
 {
     status_ = Connected;
-    id_ = id;
+    serial_id_ = id;
     addr_ = addr;
 
     recv_buffer_ = std::make_shared<Buffer>();

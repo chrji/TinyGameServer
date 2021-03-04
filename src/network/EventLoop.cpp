@@ -2,8 +2,8 @@
  *  Created by chrji on 2021/2/1.
  */
 
-#include "../include/EventLoop.h"
-#include "../util/EventChannel.h"
+#include "include/EventLoop.h"
+#include "util/EventChannel.h"
 
 EventLoop::EventLoop()
         : evbase_(event_base_new()),

@@ -4,11 +4,11 @@
 
 #include "TCPServer.h"
 
-#include "../include/EventLoop.h"
-#include "../util/ThreadManager.h"
-#include "../network/TCPAcceptor.h"
-#include "../network/TCPConnection.h"
-#include "../util/UID.h"
+#include "include/EventLoop.h"
+#include "util/ThreadManager.h"
+#include "network/TCPAcceptor.h"
+#include "network/TCPConnection.h"
+#include "util/UID.h"
 
 
 TCPServer::TCPServer(LoopSPtr loop, const std::string& addr, unsigned int thread_num)
@@ -42,15 +42,15 @@ void TCPServer::Start()
 void TCPServer::HandleNewConn(evutil_socket_t fd, const std::string& addr)
 {
     auto loop = threads_->PickEventLoop();
-    auto id = UID::GenerateUID();
+    auto serial_id = UID::GenerateSerialID();
 
-    ConnSPtr conn = std::make_shared<TCPConnection>(loop, fd, addr, id);
+    ConnSPtr conn = std::make_shared<TCPConnection>(loop, fd, addr, serial_id);
 
     conn->SetNewConnectionCallBack(connection_cb_);
     conn->SetReadCallBack(message_cb_);
     conn->SetCloseCallBack([this](const ConnSPtr& c) -> int
                            {
-                               connections_.erase(c->GetId());
+                               connections_.erase(c->GetSerialId());
                                if (close_cb_)
                                {
                                    close_cb_(c);
@@ -58,11 +58,11 @@ void TCPServer::HandleNewConn(evutil_socket_t fd, const std::string& addr)
                                return 0;
                            });
 
-    connections_[id] = conn;
+    connections_[serial_id] = conn;
 
-    loop->AsyncCall([this,id]() -> int
+    loop->AsyncCall([this,serial_id]() -> int
                     {
-                        connections_[id]->Start();
+                        connections_[serial_id]->Start();
                         return 0;
                     });
 

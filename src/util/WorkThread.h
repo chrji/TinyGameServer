@@ -6,8 +6,8 @@
 #ifndef TINYGAMESERVER_WORKTHREAD_H
 #define TINYGAMESERVER_WORKTHREAD_H
 
-#include "../include/Base.h"
-#include "../network/inner.h"
+#include "include/Base.h"
+#include "network/inner.h"
 
 #include <memory>
 #include <mutex>
