@@ -15,7 +15,7 @@
 
 ## 现有框架
 
-![1](./doc/pic/framework.png)
+![](doc/pic/framework.png)
 
 
 
