@@ -30,3 +30,5 @@ values (101, 2, 2, 2, 2, 2);
 
 
 -- TODO
+
+select uid from GameUser where USERNAME = 'admin' and PASSWORD = '123456';

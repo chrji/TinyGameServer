@@ -32,9 +32,10 @@ int main()
     redis.Connect("george");
 
 
+    // TODO use Protocol class to simplify code
+
     auto message_cb = [&](ConnSPtr conn) -> int
     {
-
         auto connBuf = conn->GetBuffer();
         {
             if (connBuf->GetLength() >= 13)
